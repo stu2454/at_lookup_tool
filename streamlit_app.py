@@ -16,14 +16,14 @@ st.markdown(
     """
     <style>
     html, body, [class*="css"], .block-container {
-        font-size: 24px !important;
+        font-size: 14px !important;
         line-height: 1.6 !important;
     }
     .stTextInput label, .stSelectbox label {
-        font-size: 22px !important;
+        font-size: 12px !important;
     }
     .stTabs [role="tab"] {
-        font-size: 22px !important;
+        font-size: 12px !important;
         padding: 0.75rem 1.5rem !important;
     }
     .block-container {
