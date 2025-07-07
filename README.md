@@ -1,8 +1,8 @@
 <!-- Badges -->
-![Build Status](https://img.shields.io/github/actions/workflow/status/your-username/at-market-analysis/ci.yml)
+![Build Status](https://img.shields.io/github/actions/workflow/status/stu2454/at-market-analysis/ci.yml)
 ![Python Version](https://img.shields.io/badge/python-3.11-blue)
 ![Streamlit](https://img.shields.io/badge/streamlit-%3E%3D1.24.0-ff69b4)
-![License](https://img.shields.io/github/license/your-username/at-market-analysis)
+![License](https://img.shields.io/github/license/stu2454/at-market-analysis)
 
 # NDIS Dynamic Scraper & Market Analysis App
 
