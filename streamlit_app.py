@@ -66,7 +66,9 @@ if not api_key:
 client = OpenAI(api_key=api_key, project=project_id)
 
 # App title
-st.title("Assistive-Tech Market Analysis (NDIS)")
+st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+
+st.sidebar.image("data/BillyTBot.png", caption="Billy suggests: powered wheelchair", use_container_width=True)
 
 # Sidebar inputs
 st.sidebar.header("Configuration")
