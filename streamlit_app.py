@@ -88,7 +88,7 @@ run_search = st.sidebar.button("Search")
 with open("data/support_items.docx", "rb") as f:
     code_guide_bytes = f.read()
 st.sidebar.download_button(
-    label="Download Code Guide",
+    label="Download Code Guide if required",
     data=code_guide_bytes,
     file_name="support_items.docx",
     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -229,8 +229,13 @@ user_prompt = (
 if extra_ctx.strip():
     user_prompt += f"\n\nAdditional context: {extra_ctx.strip()}"
 
-# Call the LLM with dynamic progress feedback
-with st.spinner("Generating market analysis, will be with you soon…"):
+# Call the LLM 
+icon_path = "data/billy_tea_icon.png"
+
+icon_placeholder = st.empty()  # Create a placeholder for the icon
+
+with st.spinner("Generating market analysis, will be with you soon. Have a cup of Billy Tea while you wait"):
+    icon_placeholder.image(icon_path, width=128)
     try:
         resp = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -241,8 +246,11 @@ with st.spinner("Generating market analysis, will be with you soon…"):
         )
         report = resp.choices[0].message.content
     except Exception as e:
+        icon_placeholder.empty()  # Remove icon if error
         st.error(f"API error: {e}")
         st.stop()
+
+icon_placeholder.empty()  # Remove icon after analysis is complete
 
 # Split on explicit markers
 parts = re.split(r"^===SECTION (\d+)===\s*$", report, flags=re.MULTILINE)
