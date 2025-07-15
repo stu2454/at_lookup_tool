@@ -274,4 +274,9 @@ tabs = st.tabs(tab_labels)
 for i, tab in enumerate(tabs, start=1):
     with tab:
         st.write(sections.get(str(i)))
+        if i == 6:
+            st.markdown(
+                "or check out this: [National Equipment Database (ASK NED)](https://askned.com.au/?srsltid=AfmBOoojNrzCgjK9bX2oPfUHkxMPmggZGTWEjbKI0-t1G2j3i6jAz1i0)",
+                unsafe_allow_html=True
+            )
 
