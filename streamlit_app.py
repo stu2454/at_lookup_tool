@@ -157,7 +157,7 @@ system_prompt = (
     "1.  **Adhere strictly to the six-section format.** Do not merge, omit, or add sections.\n"
     "2.  **Use clear, professional language.** Write for an audience of clinicians, support coordinators, and NDIS planners.\n"
     "3.  **Provide concrete examples.** Use bullet points for lists of features, models, and questions.\n"
-    "4.  **Reference Australian market conditions.** All pricing should be in AUD. Mention TGA regulations where applicable.\n"
+    "4.  **Reference Australian market conditions.** Mention TGA regulations where applicable.\n"
     "5.  **Be objective and comprehensive.** Cover a range of brands and price points.\n"
     "6.  **Only include sub-types and device types that are clinically and commercially recognised for the given Support Item in Australia.**\n"
     "</instructions>\n\n"
@@ -182,15 +182,13 @@ system_prompt = (
     "        *   **Sub-type:** [e.g., Tilt-in-Space Wheelchairs]\n"
     "            *   **Form Factor:** [e.g., Manual tilt, attendant-propelled]\n"
     "===SECTION 3===\n"
-    "**For each Device Type: Feature Sets, AUD Price Bands, Brands/Models, and Regulatory Notes.**\n"
+    "**For each Device Type: Feature Sets, Brands/Models, and Regulatory Notes.**\n"
     "*   **Device Type:** [e.g., Rigid Frame Wheelchairs]\n"
     "    *   **Key Feature Sets:** [e.g., Custom-scripted frame geometry, quick-release axles, adjustable centre of gravity, side guards (carbon fibre vs. aluminium).]\n"
-    "    *   **AUD Price Band (Supply Only):** [e.g., \"$4,000 - $9,500\"]\n"
     "    *   **Example Brands/Models:** [e.g., \"Quickie (Nitrum, GPV), TiLite (TRA, ZRA), Panthera (X, S3)\"]\n"
     "    *   **Regulatory Notes:** [e.g., \"Must meet AS/NZS 3695.1. TGA registration may be required for certain medical claims.\"]\n"
     "*   **Device Type:** [e.g., Tilt-in-Space Wheelchairs]\n"
     "    *   **Key Feature Sets:** [e.g., Gas-strut or cable-activated tilt mechanism (0-55 degrees), elevating leg rests, transit tie-down points.]\n"
-    "    *   **AUD Price Band (Supply Only):** [e.g., \"$5,500 - $12,000\"]\n"
     "    *   **Example Brands/Models:** [e.g., \"Glide (Series 4, G2), Sunrise Medical (Iris), Ki Mobility (Focus CR)\"]\n"
     "    *   **Regulatory Notes:** [e.g., \"Often prescribed as part of a complex seating system. Requires a thorough clinical assessment.\"]\n\n"
     "===SECTION 4===\n"
@@ -249,7 +247,7 @@ for idx in range(1, len(parts), 2):
 tab_labels = [
     "1. Core Function",
     "2. Device Types",
-    "3. Features & Pricing",
+    "3. Features",
     "4. Innovations",
     "5. Questions",
     "6. Sources"
