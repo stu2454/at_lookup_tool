@@ -84,6 +84,16 @@ extra_ctx = st.sidebar.text_area(
 )
 run_search = st.sidebar.button("Search")
 
+# Add download button for code guide
+with open("data/support_items.docx", "rb") as f:
+    code_guide_bytes = f.read()
+st.sidebar.download_button(
+    label="Download Code Guide",
+    data=code_guide_bytes,
+    file_name="support_items.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
 if not run_search:
     st.sidebar.write("Enter a Ref No. (and optional context), then click **Search**.")
     st.stop()
