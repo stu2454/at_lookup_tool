@@ -1,5 +1,6 @@
 import os
 import re
+import time
 from dotenv import load_dotenv
 import streamlit as st
 import pandas as pd
@@ -220,8 +221,8 @@ user_prompt = (
 if extra_ctx.strip():
     user_prompt += f"\n\nAdditional context: {extra_ctx.strip()}"
 
-# Call the LLM
-with st.spinner("Generating market analysis…"):
+# Call the LLM with dynamic progress feedback
+with st.spinner("Generating market analysis, will be with you soon…"):
     try:
         resp = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -246,12 +247,12 @@ for idx in range(1, len(parts), 2):
 
 # Render as tabs
 tab_labels = [
-    "1. Core Function & Need",
-    "2. Device Types & Forms",
-    "3. Features, Pricing & Brands",
+    "1. Core Function",
+    "2. Device Types",
+    "3. Features & Pricing",
     "4. Innovations",
-    "5. Critical Questions",
-    "6. Authoritative Sources"
+    "5. Questions",
+    "6. Sources"
 ]
 tabs = st.tabs(tab_labels)
 for i, tab in enumerate(tabs, start=1):
