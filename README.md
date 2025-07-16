@@ -13,12 +13,14 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
 ## 🚀 Features
 
 ### Core Functionality
+
 - **Support Item Lookup**: Enter any NDIS support item reference number for instant details
 - **AI-Powered Market Analysis**: Generate comprehensive 6-section market reports using GPT-4
 - **Clinical Context Integration**: Add specific functional activities or user groups for targeted analysis
 - **Interactive Interface**: Clean, accessible UI with tabbed navigation
 
 ### Market Analysis Sections
+
 1. **Core Function & Clinical Need**: Primary purpose and target disabilities
 2. **Device Types & Form Factors**: Complete taxonomy of available options
 3. **Features & Brands**: Detailed specifications, models, and regulatory notes
@@ -52,6 +54,7 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.11+
 - OpenAI API key
 - NDIS Assistive Technology Code Guide (`.docx` format)
@@ -59,18 +62,21 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
 ### Local Development
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/stu2454/at_lookup_tool.git
    cd at_lookup_tool
    ```
 
 2. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Set up environment variables**
    Create `.streamlit/secrets.toml`:
+
    ```toml
    OPENAI_API_KEY = "sk-your-api-key-here"
    OPENAI_PROJECT_ID = "your-project-id"
@@ -81,6 +87,7 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
    Place your NDIS Code Guide as `data/support_items.docx`
 
 5. **Run the app**
+
    ```bash
    streamlit run streamlit_app.py
    ```
@@ -99,16 +106,19 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
 ## 🎯 Use Cases
 
 ### For NDIS Planners
+
 - Quickly understand support item specifications during planning meetings
 - Generate evidence-based rationale for AT recommendations
 - Access comprehensive market overview without manual research
 
 ### For Allied Health Professionals
+
 - Explore device options for specific clinical presentations
 - Understand regulatory requirements and compliance considerations
 - Identify innovative solutions for complex needs
 
 ### For Support Coordinators
+
 - Educate participants about available AT options
 - Compare different device types and features
 - Access authoritative sources for detailed specifications
@@ -116,6 +126,7 @@ Billy is your friendly AI assistant that transforms complex NDIS support item co
 ## 🔧 Configuration
 
 ### Environment Variables
+
 ```bash
 OPENAI_API_KEY=sk-...          # Required: OpenAI API access
 OPENAI_PROJECT_ID=proj-...     # Optional: OpenAI project ID
@@ -123,7 +134,9 @@ TRUBRICS_API_KEY=...           # Optional: Feedback system
 ```
 
 ### Document Format
+
 The tool expects the NDIS Code Guide in `.docx` format with tables containing:
+
 - Support Item Ref No.
 - Support Item (name)
 - Description
@@ -131,12 +144,14 @@ The tool expects the NDIS Code Guide in `.docx` format with tables containing:
 ## 🚀 Deployment
 
 ### Streamlit Community Cloud
+
 1. Push code to GitHub
 2. Connect repository to Streamlit Cloud
 3. Add secrets via the Streamlit Cloud dashboard
 4. Deploy automatically on commit
 
 ### Local Docker (Optional)
+
 ```bash
 # Build and run with Docker Compose
 docker-compose up --build
@@ -145,14 +160,18 @@ docker-compose up --build
 ## 🎨 Customization
 
 ### Styling
+
 The app uses custom CSS for:
+
 - Increased font sizes for accessibility (24px base)
 - Professional color scheme
 - Responsive layout design
 - Loading animations
 
 ### Prompt Engineering
+
 The market analysis is generated using carefully crafted prompts that:
+
 - Ensure consistent 6-section structure
 - Include Australian market context
 - Reference TGA regulations
@@ -161,6 +180,7 @@ The market analysis is generated using carefully crafted prompts that:
 ## 📊 Feedback & Analytics
 
 The tool includes optional feedback collection via Trubrics:
+
 - User satisfaction ratings
 - Feature usage analytics
 - Performance monitoring
@@ -191,9 +211,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📞 Support
 
 For questions or support, please contact:
+
 - Stuart Smith, Assistant Director, Market Strategy Branch, NDIA
-- Email: julia.paterson@ndis.gov.au
+- Email: stuart.smith@ndis.gov.au
 
 ---
 
-*Built with ❤️ for the NDIS community during Innovation Month 2025*
+_Built with ❤️ for the NDIS community during Innovation Month 2025_
