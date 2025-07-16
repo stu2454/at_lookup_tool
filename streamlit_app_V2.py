@@ -129,7 +129,7 @@ except Exception:
 # App title with image
 col1, col2 = st.columns([5, 1])
 with col1:
-    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool, IM2025")
 with col2:
     # Create a container with right alignment
     st.markdown(
