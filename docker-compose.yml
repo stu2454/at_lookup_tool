@@ -6,6 +6,7 @@ services:
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_PROJECT_ID=${OPENAI_PROJECT_ID}
+      - TRUBRICS_API_KEY=${TRUBRICS_API_KEY}
     volumes:
       - ./data:/app/data:ro
 

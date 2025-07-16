@@ -3,4 +3,7 @@ python-docx
 openai
 python-dotenv
 pandas
+trubrics==1.8.*
+streamlit-feedback==0.1.4
+
 
