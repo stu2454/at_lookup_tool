@@ -73,6 +73,18 @@ st.markdown(
     .landing-section *, .feature-box * {
         color: inherit !important;
     }
+    .title-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 2rem;
+    }
+    .title-text {
+        flex: 1;
+    }
+    .title-image {
+        flex-shrink: 0;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -114,8 +126,23 @@ try:
 except Exception:
     tb = None
 
-# App title
-st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+# App title with image
+col1, col2 = st.columns([5, 1])
+with col1:
+    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+with col2:
+    # Create a container with right alignment
+    st.markdown(
+        """
+        <div style="display: flex; justify-content: flex-end;">
+        """, 
+        unsafe_allow_html=True
+    )
+    try:
+        st.image("data/BillyTBot.png", caption="Billy the AT guide", width=300)
+    except FileNotFoundError:
+        st.write("🤖 Billy the AT guide")  # Fallback if image not found
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Initialize session state
 if 'show_tool' not in st.session_state:
@@ -198,8 +225,6 @@ with tab1:
 
 with tab2:
     # Tool interface (existing code)
-    st.sidebar.image("data/BillyTBot.png", caption="Billy the AT guide", use_container_width=True)
-
     # Sidebar inputs
     st.sidebar.header("Configuration")
     ref_no = st.sidebar.text_input("Support Item Ref No.")
