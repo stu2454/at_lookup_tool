@@ -7,9 +7,12 @@ import pandas as pd
 from openai import OpenAI
 from io import BytesIO
 from docx import Document
+from trubrics import Trubrics
+from streamlit_feedback import streamlit_feedback
 
 # Load local .env when running locally
 load_dotenv()
+
 
 # Page configuration
 st.set_page_config(
@@ -70,6 +73,18 @@ st.markdown(
     .landing-section *, .feature-box * {
         color: inherit !important;
     }
+    .title-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 2rem;
+    }
+    .title-text {
+        flex: 1;
+    }
+    .title-image {
+        flex-shrink: 0;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -101,8 +116,33 @@ if not api_key:
 # Initialise OpenAI client
 client = OpenAI(api_key=api_key, project=project_id)
 
-# App title
-st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+# Initialise Trubrics client
+try:
+    tr_api_key = os.getenv("TRUBRICS_API_KEY") or st.secrets.get("TRUBRICS_API_KEY")
+    if tr_api_key:
+        tb = Trubrics(api_key=tr_api_key)
+    else:
+        tb = None
+except Exception:
+    tb = None
+
+# App title with image
+col1, col2 = st.columns([5, 1])
+with col1:
+    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool")
+with col2:
+    # Create a container with right alignment
+    st.markdown(
+        """
+        <div style="display: flex; justify-content: flex-end;">
+        """, 
+        unsafe_allow_html=True
+    )
+    try:
+        st.image("data/BillyTBot.png", caption="Billy the AT guide", width=300)
+    except FileNotFoundError:
+        st.write("🤖 Billy the AT guide")  # Fallback if image not found
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Initialize session state
 if 'show_tool' not in st.session_state:
@@ -185,8 +225,6 @@ with tab1:
 
 with tab2:
     # Tool interface (existing code)
-    st.sidebar.image("data/BillyTBot.png", caption="Billy the AT guide", use_container_width=True)
-
     # Sidebar inputs
     st.sidebar.header("Configuration")
     ref_no = st.sidebar.text_input("Support Item Ref No.")
@@ -209,6 +247,41 @@ with tab2:
         file_name="support_items.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
+
+# Feedback widget at the bottom of the sidebar
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 📝 We value your feedback")
+    
+    # Only show feedback widget if Trubrics is available
+    if tb is not None:
+        def _save_feedback(resp):
+            try:
+                # Extract the feedback data properly
+                feedback_data = {
+                    "score": resp.get("score"),
+                    "text": resp.get("text", ""),
+                    "feedback_type": "faces",
+                    "timestamp": time.time()
+                }
+                
+                tb.track(
+                    user_id="anonymous",
+                    event="app_feedback",
+                    properties=feedback_data
+                )
+                st.sidebar.success("Thank you for your feedback!")
+            except Exception as e:
+                st.sidebar.error(f"Error saving feedback: {e}")
+        
+        with st.sidebar:
+            streamlit_feedback(
+                feedback_type="faces",  # or "thumbs"
+                optional_text_label="Comments (optional)",
+                on_submit=_save_feedback,
+                key="overall_app",
+            )
+    else:
+        st.sidebar.info("Feedback system temporarily unavailable")
 
     if not run_search:
         st.info("👈 Use the sidebar to enter a Support Item Reference Number and start your analysis.")
