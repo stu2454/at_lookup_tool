@@ -31,10 +31,70 @@ st.markdown(
     .stTextInput label, .stSelectbox label, .stTextArea label {
         font-size: 22px !important;
     }
-    .stTabs [role="tab"] {
-        font-size: 22px !important;
-        padding: 0.75rem 1.5rem !important;
-    }
+    
+    /* Tab styling - consolidated and corrected */
+    /* Tab styling - Modern Office Look */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 50px;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 30px !important;
+    font-weight: 600 !important;
+    background-color: #e8f4f8 !important;
+    border: 2px solid #4a90a4 !important;
+    border-bottom: none !important;
+    border-radius: 6px 6px 0 0 !important;
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.15) !important;
+    background-image: linear-gradient(145deg, #ffffff 0%, #e8f4f8 100%) !important;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    color: #1f77b4 !important;
+    background-color: #ffffff !important;
+    border-color: #2c5f73 !important;
+    border-width: 3px !important;
+    box-shadow: 0 -8px 16px rgba(44,95,115,0.25) !important;
+}
+
+.stTabs [data-baseweb="tab"] p {
+    font-size: 30px !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+}
+
+/* Alternative selectors for different Streamlit versions */
+.stTabs [role="tab"] {
+    font-size: 30px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    background-color: #e8f4f8 !important;
+    border: 2px solid #4a90a4 !important;
+    border-bottom: none !important;
+    border-radius: 6px 6px 0 0 !important;
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.15) !important;
+    background-image: linear-gradient(145deg, #ffffff 0%, #e8f4f8 100%) !important;
+}
+
+.stTabs [role="tab"][aria-selected="true"] {
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    background-color: #ffffff !important;
+    border-color: #2c5f73 !important;
+    border-width: 3px !important;
+    box-shadow: 0 -8px 16px rgba(44,95,115,0.25) !important;
+}
+
+/* any tab NOT aria-selected */
+.stTabs [data-baseweb="tab"]:not([aria-selected="true"]),
+.stTabs [role="tab"]:not([aria-selected="true"]) {
+    color: #444444 !important;
+}
+    
     .block-container {
         padding: 3rem 5rem !important;
     }
@@ -85,6 +145,20 @@ st.markdown(
     .title-image {
         flex-shrink: 0;
     }
+    .feedback-section {
+        background-color: #1565c0;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid #003366;
+        color: #ffffff !important;
+    }
+    .feedback-section h2, .feedback-section h3, .feedback-section p {
+        color: #ffffff !important;
+    }
+    .feedback-section strong {
+        color: #ffffff !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -129,7 +203,7 @@ except Exception:
 # App title with image
 col1, col2 = st.columns([5, 1])
 with col1:
-    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool IM2025")
+    st.title("Capa-BillyT-BOT: AT Support Item Lookup Tool, IM2025")
 with col2:
     # Create a container with right alignment
     st.markdown(
@@ -149,7 +223,7 @@ if 'show_tool' not in st.session_state:
     st.session_state.show_tool = False
 
 # Create tabs for navigation
-tab1, tab2 = st.tabs(["📖 About This Tool", "🔍 Use Tool"])
+tab1, tab2, tab3 = st.tabs(["📖 About This Tool", "🔍 Use Tool", "💭 Provide Feedback"])
 
 with tab1:
     st.markdown("""
@@ -220,6 +294,7 @@ with tab1:
     <div class="landing-section">
         <h3>🎯 Ready to Get Started?</h3>
         <p>Click the "<strong>🔍 Use Tool</strong>" tab above to begin your AT support item analysis. If you need the complete NDIS Code Guide, you can download it directly from the tool sidebar.</p>
+        <p>Once you have used the tool click the "<strong>💭 Provide Feedback</strong>" tab above to provide us some much welcome feedback.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -247,41 +322,6 @@ with tab2:
         file_name="support_items.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
-
-# Feedback widget at the bottom of the sidebar
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📝 We value your feedback")
-    
-    # Only show feedback widget if Trubrics is available
-    if tb is not None:
-        def _save_feedback(resp):
-            try:
-                # Extract the feedback data properly
-                feedback_data = {
-                    "score": resp.get("score"),
-                    "text": resp.get("text", ""),
-                    "feedback_type": "faces",
-                    "timestamp": time.time()
-                }
-                
-                tb.track(
-                    user_id="anonymous",
-                    event="app_feedback",
-                    properties=feedback_data
-                )
-                st.sidebar.success("Thank you for your feedback!")
-            except Exception as e:
-                st.sidebar.error(f"Error saving feedback: {e}")
-        
-        with st.sidebar:
-            streamlit_feedback(
-                feedback_type="faces",  # or "thumbs"
-                optional_text_label="Comments (optional)",
-                on_submit=_save_feedback,
-                key="overall_app",
-            )
-    else:
-        st.sidebar.info("Feedback system temporarily unavailable")
 
     if not run_search:
         st.info("👈 Use the sidebar to enter a Support Item Reference Number and start your analysis.")
@@ -468,3 +508,83 @@ with tab2:
                     "or check out this: [National Equipment Database (ASK NED)](https://askned.com.au/?srsltid=AfmBOoojNrzCgjK9bX2oPfUHkxMPmggZGTWEjbKI0-t1G2j3i6jAz1i0)",
                     unsafe_allow_html=True
                 )
+
+with tab3:
+    st.markdown("""
+    <div class="feedback-section">
+        <h2>Help Us Improve This Tool</h2>
+        <p>Your feedback is invaluable for the continued development and improvement of the AT Support Item Market Analysis Tool. 
+        We want to ensure this tool meets the needs of NDIS planners, allied health professionals, and support coordinators 
+        in the most effective way possible.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="feedback-section">
+        <h3>Why Your Feedback Matters</h3>
+        <p>Every piece of feedback helps us:</p>
+        <ul>
+            <li><strong>Enhance accuracy:</strong> Improve the quality and relevance of market analysis</li>
+            <li><strong>Add new features:</strong> Develop functionality that addresses your specific needs</li>
+            <li><strong>Improve usability:</strong> Make the tool more intuitive and efficient to use</li>
+            <li><strong>Expand coverage:</strong> Include additional support items and market insights</li>
+        </ul>
+        
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("**Please take a moment to rate your experience and share any specific comments, suggestions, or issues you've encountered.**")
+    
+    # Only show feedback widget if Trubrics is available
+    if tb is not None:
+        def _save_feedback(resp):
+            try:
+                # Extract the feedback data properly
+                feedback_data = {
+                    "score": resp.get("score"),
+                    "text": resp.get("text", ""),
+                    "feedback_type": "faces",
+                    "timestamp": time.time()
+                }
+                
+                tb.track(
+                    user_id="anonymous",
+                    event="app_feedback",
+                    properties=feedback_data
+                )
+                st.success("🎉 Thank you for your feedback! Your input helps us make this tool better for everyone.")
+            except Exception as e:
+                st.error(f"Error saving feedback: {e}")
+        
+        # Center the feedback widget
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.markdown("### Rate Your Experience")
+            streamlit_feedback(
+                feedback_type="faces",
+                optional_text_label="Additional Comments (optional)",
+                on_submit=_save_feedback,
+                key="main_feedback",
+            )
+            
+        st.markdown("---")
+        st.markdown("""
+        <div style="text-align: center; color: #666; margin-top: 2rem;">
+            <p><strong>Thank you for helping us improve!</strong></p>
+            <p>For technical support or detailed feature requests, please contact the development team.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    else:
+        st.warning("⚠️ Feedback system is temporarily unavailable. Please try again later.")
+        st.markdown("""
+        <div style="background-color: #f0f2f6; padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem;">
+            <h4>Alternative Feedback Methods</h4>
+            <p>While our feedback system is being updated, you can still share your thoughts:</p>
+            <ul>
+                <li>Contact the development team directly</li>
+                <li>Submit feedback through your organization's channels</li>
+                <li>Check back later when the system is restored</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
